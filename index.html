@@ -1,0 +1,447 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+
+  <!-- Makes the dashboard responsive on phones and tablets -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta
+    name="description"
+    content="Nexus Dashboard — a modern dashboard for monitoring projects, tasks, and performance."
+  >
+
+  <title>Nexus Dashboard | Overview</title>
+
+  <!-- External font for a clean, modern interface -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  >
+
+  <!-- Icon library for navigation and dashboard controls -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+  >
+
+  <!-- Our custom stylesheet -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Chart.js will help us create interactive charts later -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- Defer JavaScript until the HTML has been parsed -->
+  <script src="script.js" defer></script>
+</head>
+
+<body>
+  <!-- The main application layout -->
+  <div class="dashboard">
+
+    <!-- Sidebar navigation -->
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="#overview" aria-label="Nexus Dashboard home">
+        <span class="brand-icon">
+          <i class="fa-solid fa-layer-group"></i>
+        </span>
+        <span>Nexus<span class="brand-accent">.</span></span>
+      </a>
+
+      <p class="nav-label">WORKSPACE</p>
+
+      <nav class="navigation" aria-label="Main navigation">
+        <a class="nav-link active" href="#overview">
+          <i class="fa-solid fa-grid-2"></i>
+          <span>Overview</span>
+        </a>
+
+        <a class="nav-link" href="#projects">
+          <i class="fa-solid fa-folder-open"></i>
+          <span>Projects</span>
+        </a>
+
+        <a class="nav-link" href="#tasks">
+          <i class="fa-solid fa-list-check"></i>
+          <span>Tasks</span>
+        </a>
+
+        <a class="nav-link" href="#analytics">
+          <i class="fa-solid fa-chart-line"></i>
+          <span>Analytics</span>
+        </a>
+
+        <a class="nav-link" href="#activity">
+          <i class="fa-solid fa-clock-rotate-left"></i>
+          <span>Activity</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-bottom">
+        <div class="help-card">
+          <span class="help-icon">
+            <i class="fa-regular fa-circle-question"></i>
+          </span>
+          <h3>Need a hand?</h3>
+          <p>Your workspace is ready. Explore your dashboard.</p>
+        </div>
+
+        <button class="profile-button" id="profile-button" type="button">
+          <span class="avatar">JD</span>
+          <span class="profile-details">
+            <strong>Jordan Davis</strong>
+            <small>Workspace Admin</small>
+          </span>
+          <i class="fa-solid fa-ellipsis"></i>
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main dashboard content -->
+    <main class="main-content" id="overview">
+
+      <!-- Top header -->
+      <header class="topbar">
+        <div class="topbar-left">
+          <button
+            class="icon-button mobile-menu-button"
+            id="menu-toggle"
+            type="button"
+            aria-label="Toggle navigation"
+            aria-controls="sidebar"
+            aria-expanded="false"
+          >
+            <i class="fa-solid fa-bars"></i>
+          </button>
+
+          <div class="breadcrumb">
+            Workspace <i class="fa-solid fa-chevron-right"></i>
+            <strong>Overview</strong>
+          </div>
+        </div>
+
+        <div class="topbar-actions">
+          <label class="search-box">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input
+              type="search"
+              id="dashboard-search"
+              placeholder="Search dashboard..."
+              aria-label="Search dashboard"
+            >
+            <span class="search-shortcut">/</span>
+          </label>
+
+          <button
+            class="icon-button theme-toggle"
+            id="theme-toggle"
+            type="button"
+            aria-label="Switch to dark theme"
+            title="Toggle theme"
+          >
+            <i class="fa-regular fa-moon"></i>
+          </button>
+
+          <button
+            class="icon-button notification-button"
+            id="notification-button"
+            type="button"
+            aria-label="Notifications"
+          >
+            <i class="fa-regular fa-bell"></i>
+            <span class="notification-dot"></span>
+          </button>
+        </div>
+      </header>
+
+      <!-- Welcome section -->
+      <section class="welcome-section">
+        <div>
+          <p class="eyebrow">YOUR WORKSPACE AT A GLANCE</p>
+          <h1>Good day, Jordan <span>✦</span></h1>
+          <p class="welcome-description">
+            Here is what's happening with your projects today.
+          </p>
+        </div>
+
+        <button class="primary-button" id="report-button" type="button">
+          <i class="fa-solid fa-download"></i>
+          Export report
+        </button>
+      </section>
+
+      <!-- Statistics cards -->
+      <section class="stats-grid" aria-label="Workspace statistics">
+        <article class="stat-card">
+          <div class="stat-top">
+            <span class="stat-icon purple">
+              <i class="fa-solid fa-folder"></i>
+            </span>
+            <span class="stat-trend positive">+12.5%</span>
+          </div>
+          <p class="stat-label">Total Projects</p>
+          <h2 id="total-projects">12</h2>
+          <p class="stat-footnote">Across your workspace</p>
+        </article>
+
+        <article class="stat-card">
+          <div class="stat-top">
+            <span class="stat-icon blue">
+              <i class="fa-solid fa-list-check"></i>
+            </span>
+            <span class="stat-trend positive">+8.2%</span>
+          </div>
+          <p class="stat-label">Tasks Completed</p>
+          <h2 id="completed-tasks">48</h2>
+          <p class="stat-footnote">This month</p>
+        </article>
+
+        <article class="stat-card">
+          <div class="stat-top">
+            <span class="stat-icon orange">
+              <i class="fa-solid fa-hourglass-half"></i>
+            </span>
+            <span class="stat-trend neutral">In progress</span>
+          </div>
+          <p class="stat-label">Pending Tasks</p>
+          <h2 id="pending-tasks">16</h2>
+          <p class="stat-footnote">Across active projects</p>
+        </article>
+
+        <article class="stat-card">
+          <div class="stat-top">
+            <span class="stat-icon green">
+              <i class="fa-solid fa-chart-pie"></i>
+            </span>
+            <span class="stat-trend positive">+4.6%</span>
+          </div>
+          <p class="stat-label">Completion Rate</p>
+          <h2 id="completion-rate">75%</h2>
+          <p class="stat-footnote">Overall task progress</p>
+        </article>
+      </section>
+
+      <!-- Analytics section -->
+      <section class="analytics-grid" id="analytics">
+
+        <article class="panel chart-panel">
+          <div class="panel-heading">
+            <div>
+              <h2>Performance Overview</h2>
+              <p>Project activity throughout the week</p>
+            </div>
+
+            <select id="chart-period" aria-label="Chart time period">
+              <option value="week">This week</option>
+              <option value="month">This month</option>
+            </select>
+          </div>
+
+          <div class="chart-container">
+            <canvas
+              id="performance-chart"
+              role="img"
+              aria-label="Bar chart showing project activity over time"
+            ></canvas>
+          </div>
+        </article>
+
+        <article class="panel progress-panel">
+          <div class="panel-heading">
+            <div>
+              <h2>Project Progress</h2>
+              <p>Progress by project</p>
+            </div>
+            <button class="text-button" type="button" id="view-projects">
+              View all
+            </button>
+          </div>
+
+          <div class="project-progress-list" id="project-progress-list">
+            <!-- JavaScript will insert project progress items here -->
+          </div>
+        </article>
+      </section>
+
+      <!-- Projects table -->
+      <section class="panel projects-panel" id="projects">
+        <div class="panel-heading projects-heading">
+          <div>
+            <h2>Recent Projects</h2>
+            <p>Monitor your latest workspace projects</p>
+          </div>
+
+          <div class="project-controls">
+            <select id="project-filter" aria-label="Filter projects by status">
+              <option value="all">All projects</option>
+              <option value="In Progress">In progress</option>
+              <option value="Completed">Completed</option>
+              <option value="On Hold">On hold</option>
+            </select>
+
+            <button class="primary-button small-button" id="add-project" type="button">
+              <i class="fa-solid fa-plus"></i>
+              New project
+            </button>
+          </div>
+        </div>
+
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>PROJECT</th>
+                <th>OWNER</th>
+                <th>STATUS</th>
+                <th>PROGRESS</th>
+                <th>DUE DATE</th>
+              </tr>
+            </thead>
+
+            <tbody id="projects-table-body">
+              <!-- JavaScript will insert project rows here -->
+            </tbody>
+          </table>
+        </div>
+
+        <p class="table-empty hidden" id="table-empty">
+          No projects match your search or filter.
+        </p>
+      </section>
+
+      <!-- Tasks and activity -->
+      <section class="bottom-grid">
+
+        <article class="panel tasks-panel" id="tasks">
+          <div class="panel-heading">
+            <div>
+              <h2>Upcoming Tasks</h2>
+              <p>Keep track of your next steps</p>
+            </div>
+            <span class="count-badge" id="task-count">4 tasks</span>
+          </div>
+
+          <div class="task-list" id="task-list">
+            <!-- JavaScript will insert tasks here -->
+          </div>
+        </article>
+
+        <article class="panel activity-panel" id="activity">
+          <div class="panel-heading">
+            <div>
+              <h2>Recent Activity</h2>
+              <p>Latest workspace updates</p>
+            </div>
+          </div>
+
+          <div class="activity-list" id="activity-list">
+            <!-- JavaScript will insert activity items here -->
+          </div>
+        </article>
+      </section>
+
+
+      
+<!-- New project dialog -->
+<dialog class="project-dialog" id="project-dialog">
+    <form id="project-form">
+      <div class="dialog-heading">
+        <div>
+          <p class="eyebrow">WORKSPACE MANAGEMENT</p>
+          <h2>Create a new project</h2>
+          <p class="dialog-description">
+            Add a project and keep your workspace organised.
+          </p>
+        </div>
+  
+        <button
+          type="button"
+          class="icon-button"
+          id="close-project-dialog"
+          aria-label="Close project form"
+        >
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+  
+      <label class="form-field">
+        Project name
+        <input
+          type="text"
+          id="project-name"
+          name="projectName"
+          placeholder="e.g. Customer Portal"
+          maxlength="80"
+          required
+        >
+      </label>
+  
+      <label class="form-field">
+        Project owner
+        <input
+          type="text"
+          id="project-owner"
+          name="projectOwner"
+          placeholder="e.g. Jordan Davis"
+          maxlength="60"
+          required
+        >
+      </label>
+  
+      <label class="form-field">
+        Due date
+        <input
+          type="date"
+          id="project-due-date"
+          name="projectDueDate"
+          required
+        >
+      </label>
+  
+      <label class="form-field">
+        Initial status
+        <select id="project-status" name="projectStatus">
+          <option value="In Progress">In Progress</option>
+          <option value="On Hold">On Hold</option>
+          <option value="Completed">Completed</option>
+        </select>
+      </label>
+  
+      <div class="dialog-actions">
+        <button
+          type="button"
+          class="secondary-button"
+          id="cancel-project"
+        >
+          Cancel
+        </button>
+  
+        <button type="submit" class="primary-button">
+          <i class="fa-solid fa-plus"></i>
+          Create project
+        </button>
+      </div>
+    </form>
+  </dialog>
+  
+
+      <!-- Footer -->
+      <footer class="dashboard-footer">
+        <p>© <span id="current-year"></span> Nexus Dashboard. Built with care.</p>
+        <p>Designed for clarity. Built for productivity.</p>
+      </footer>
+
+      <!-- Accessible live status messages -->
+      <p
+        class="visually-hidden"
+        id="status-message"
+        role="status"
+        aria-live="polite"
+      ></p>
+    </main>
+  </div>
+</body>
+</html>
